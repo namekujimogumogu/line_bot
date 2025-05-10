@@ -1,16 +1,11 @@
-import requests
 import openai
+import requests
 import os
 
-# 環境変数から各種トークンを取得
-LINE_TOKEN = os.getenv("LINE_TOKEN")
-USER_ID = os.getenv("LINE_USER_ID")
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
 def generate_message():
-    openai.api_key = OPENAI_API_KEY
+    openai.api_key = os.getenv("OPENAI_API_KEY")
     prompt = (
-        "LINEメッセージを1つだけ送ってください。"
+        "LINEメッセージを1つ生成してください。"
     )
     response = openai.ChatCompletion.create(
         model="gpt-4",
@@ -24,21 +19,19 @@ def send_line_message(message):
     url = "https://api.line.me/v2/bot/message/push"
     headers = {
         "Content-Type": "application/json",
-        "Authorization": f"Bearer {LINE_TOKEN}"
+        "Authorization": f"Bearer {os.getenv('LINE_TOKEN')}"
     }
     payload = {
-        "to": USER_ID,
+        "to": os.getenv("LINE_USER_ID"),
         "messages": [{
             "type": "text",
             "text": message
         }]
     }
-    requests.post(url, headers=headers, json=payload)
-
-def main():
-    message = generate_message()
-    print(f"Sending: {message}")
-    send_line_message(message)
+    response = requests.post(url, headers=headers, json=payload)
+    print("LINE Response:", response.status_code, response.text)
 
 if __name__ == "__main__":
-    main()
+    msg = generate_message()
+    print("Generated message:", msg)
+    send_line_message(msg)
