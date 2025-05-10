@@ -2,8 +2,8 @@ name: Connor LINE Notify
 
 on:
   schedule:
-    - cron: '*/30 * * * *'  # 30分ごとに実行
-  workflow_dispatch:       # 手動実行も可能
+    - cron: '*/30 * * * *'
+  workflow_dispatch:
 
 jobs:
   run-bot:
@@ -19,7 +19,7 @@ jobs:
         python-version: '3.11'
 
     - name: Install dependencies
-      run: pip install openai requests
+      run: pip install -r requirements.txt
 
     - name: Run bot
       run: python bot.py
