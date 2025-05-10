@@ -8,7 +8,7 @@ def generate_message():
         "LINEメッセージを1つ生成してください。"
     )
     response = openai.ChatCompletion.create(
-        model="gpt-4",
+        model="gpt-4o",
         messages=[{"role": "user", "content": prompt}],
         temperature=0.9,
         max_tokens=100
