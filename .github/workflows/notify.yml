@@ -18,10 +18,16 @@ jobs:
       with:
         python-version: '3.11'
 
-    - name: Install dependencies
-      run: pip install -r requirements.txt
+    - name: Uninstall latest openai (if any)
+      run: pip uninstall -y openai
 
-    - name: Check openai version
+    - name: Install legacy openai 0.28
+      run: pip install openai==0.28
+
+    - name: Install other dependencies
+      run: pip install requests tqdm
+
+    - name: Confirm openai version
       run: pip show openai
 
     - name: Run bot
