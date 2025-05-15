@@ -2,9 +2,10 @@ name: LINE Notify
 
 on:
   schedule:
-    - cron: '*/30 * * * *'
+    - cron: '0 21-23 * * *'   # JST 6:00〜8:00
+    - cron: '0 0-13 * * *'    # JST 9:00〜22:00
   workflow_dispatch:
-
+  
 jobs:
   run-bot:
     runs-on: ubuntu-latest
