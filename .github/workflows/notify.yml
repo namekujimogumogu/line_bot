@@ -1,4 +1,4 @@
-name: Connor LINE Notify
+name: LINE Notify
 
 on:
   schedule:
